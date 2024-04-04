@@ -3,6 +3,7 @@ import java.util.Scanner
 fun main() {
     val consola = Consola()
     val menu = Menu()
+    val ahorcado = Ahorcado()
 
     // Recibimos la opción del menú
     do {

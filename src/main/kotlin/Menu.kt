@@ -1,6 +1,7 @@
 class Menu() : IMenu {
     private val consola = Consola()
     private val serie = CrearSerie()
+    private val ahorcado = Ahorcado((5..10).random())
     override fun mostrarMenu() {
         var opcion = consola.mostrarMensaje(
             "1.- Generar serie.\n" +
@@ -14,7 +15,7 @@ class Menu() : IMenu {
     }
 
     override fun jugarAhorcado() {
-        consola.mostrarMensaje(("Aún no se ha implementado."))
+        ahorcado.jugar()
     }
 }
 
