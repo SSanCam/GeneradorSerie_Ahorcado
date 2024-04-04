@@ -24,7 +24,7 @@ class CrearSerie() {
 
         // Pedimos un número dentro del rango creado:
         val numPedido =
-            consola.lecturaDato("Introduce un número[${limiteRango.first}-${limiteRango.last}]").toString().toInt()
+            consola.lecturaDato("Introduce un número[${limiteRango.first}-${limiteRango.last}]").toInt()
         if (numPedido > limiteRango.last / 2) {
             // El número pedido se acerca más al número de mayor valor en el rango, por lo que será una serie ASCENDIENTE.
             var suma = numPedido
@@ -36,7 +36,7 @@ class CrearSerie() {
                 niveles++
             }
             serieFinal += "Suma => $suma"
-            return consola.mostrarMensaje(serieFinal)
+            return serieFinal
 
         }// Si el número pedido se acerca al extremo de menor valor del rango, será una serie DESCENDIENTE.
         else {
@@ -49,7 +49,7 @@ class CrearSerie() {
                 resta -= num
             }
             serieFinal += "Total => $resta"
-            return consola.mostrarMensaje(serieFinal)
+            return serieFinal
         }
     }
 }

@@ -1,7 +1,15 @@
+/**
+ * Menu
+ * Hereda los metodos de la Interface IMenu
+ */
 class Menu() : IMenu {
     private val consola = Consola()
 
 
+    /**
+     * Mostrar menu
+     * @return String Mostrando un texto con las opciones del menú.
+     */
     override fun mostrarMenu(): String  {
         return consola.mostrarMensaje(
             "1.- Generar serie.\n" +
@@ -10,15 +18,16 @@ class Menu() : IMenu {
         )
     }
 
+    /**
+     * Generar Serie
+     * Devuelve la serie que se generará según el primer rango aleatorio y el número introducido por teclado.
+     */
     override fun generarSerie() {
-        val serie = CrearSerie()
-        consola.mostrarMensaje(serie.crearRangoAleatorio())
-
+        CrearSerie().crearRangoAleatorio()
     }
 
     override fun jugarAhorcado() {
-        val ahorcado = Ahorcado((5..10).random())
-        consola.mostrarMensaje(ahorcado.jugar())
+        Ahorcado().jugar()
     }
 }
 
