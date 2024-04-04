@@ -10,18 +10,25 @@ class Ahorcado(intentos: Int) {
             field = value
         }
     private val palabraAleatoria = Palabra.obtenerPalabraAleatoria()
-
+    private val consola = Consola()
     // Métodos
     /**
      * Jugar
      * Inicia la partida de Ahorcado.
      */
     fun jugar() {
-
-        var palabraDescubierta = ""
+        val abecedario = "a".."z"
+        var palabraOculta = ""
         for (letras in palabraAleatoria){
-            palabraDescubierta += "_ "
+            palabraOculta += "_ "
         }
+        do {
+            consola.mostrarMensaje("Adivina la palabra: $palabraOculta")
+            var letra = consola.leerInfo("Intenta con una letra:").toString()
+            if (letra.lowercase() in abecedario){
+
+            }
+        }while (letra != null && letra.lowercase() in abecedario)
 
 
     }

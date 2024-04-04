@@ -1,20 +1,25 @@
-import java.util.Scanner
-
+/**
+ * Programa principal.
+ */
 fun main() {
     val consola = Consola()
     val menu = Menu()
-    val ahorcado = Ahorcado()
 
     // Recibimos la opción del menú
     do {
-        consola.mostrarMensaje(menu.mostrarMenu())
-        var opcion: String = consola.leerInfo("Introduce tu opción:").toString()
+        consola.mostrarMensaje(menu.mostrarMenu()).toString()
+        consola.mostrarMensaje("Introduce tu opción")
+        val opcion = consola.leerInfo(">> ")
         when (opcion) {
             "1" -> menu.generarSerie()
             "2" -> menu.jugarAhorcado()
-            "3" -> consola.mostrarMensaje("Saliendo del programa.")
+            "3" -> {
+                consola.mostrarMensaje("Saliendo del programa.")
+                Thread.sleep(200)
+            }
+
             else -> consola.mostrarMensaje("Opción no válida.")
         }
-    } while (opcion.toInt() != 3)
+    } while (opcion != 3)
 
 }

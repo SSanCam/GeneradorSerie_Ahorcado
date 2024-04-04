@@ -3,18 +3,18 @@
  * Hereda funcionalidades de las interface IEntradaSalida e IMenu
  *
  */
-class CrearSerie(){
+class CrearSerie() {
     private val consola = Consola()
+
     /**
      * Generar Serie, es heredada de la interface IMenu.
      * Lee y devuelve datos por las funciones heredadas de IEntradaSalida
      */
-    fun crearRangoAleatorio(): String {
+    fun crearRangoAleatorio() {
         val primerLimite = (1..100).random()
-        val limiteRango: IntRange
         // Comprobamos que el rango que se genere esté dentro del propio rango 1..100.
         // El rango debe de poder tener al menos 30 números tanto inferiores como superiores.
-        limiteRango = if (primerLimite < 30) {
+        val limiteRango = if (primerLimite < 30) {
             (primerLimite..100)
         } else if (primerLimite > 70) {
             (1..primerLimite)
@@ -23,7 +23,8 @@ class CrearSerie(){
         }
 
         // Pedimos un número dentro del rango creado:
-        val numPedido = consola.leerInfo("Introduce un número[${limiteRango.first}-${limiteRango.last}]").toString().toInt()
+        val numPedido =
+            consola.leerInfo("Introduce un número[${limiteRango.first}-${limiteRango.last}]").toString().toInt()
         if (numPedido > limiteRango.last / 2) {
             // El número pedido se acerca más al número de mayor valor en el rango, por lo que será una serie ASCENDIENTE.
             var suma = numPedido
@@ -35,7 +36,7 @@ class CrearSerie(){
                 niveles++
             }
             serieFinal += "Suma => $suma"
-            return serieFinal
+            return consola.mostrarMensaje(serieFinal)
 
         }// Si el número pedido se acerca al extremo de menor valor del rango, será una serie DESCENDIENTE.
         else {
@@ -48,7 +49,7 @@ class CrearSerie(){
                 resta -= num
             }
             serieFinal += "Total => $resta"
-            return serieFinal
+            return consola.mostrarMensaje(serieFinal)
         }
     }
 }
