@@ -19,18 +19,33 @@ class Ahorcado(intentos: Int) {
     fun jugar() {
         val abecedario = "a".."z"
         var palabraOculta = ""
-        for (letras in palabraAleatoria){
+        var intentosRestantes = intentos
+        for (letras in palabraAleatoria) {
             palabraOculta += "_ "
         }
         do {
             consola.mostrarMensaje("Adivina la palabra: $palabraOculta")
-            var letra = consola.leerInfo("Intenta con una letra:").toString()
-            if (letra.lowercase() in abecedario){
+            var letra = consola.lecturaDato("Intenta con una letra:")
+
+            // Comprobamos si la letra introducida está o no en la palabra aleatoria oculta.
+            if (letra.lowercase() in palabraAleatoria) {
+
 
             }
-        }while (letra != null && letra.lowercase() in abecedario)
 
+            if (letra.lowercase() !in palabraAleatoria) {
+                consola.mostrarMensaje("Incorrecto! Intentos restantes: $intentosRestantes")
+            }
+            // Restamos un intento de los totales.
+            intentosRestantes--
 
+        } while (letra != null && letra.lowercase() in abecedario && intentos <= intentosRestantes)
+
+        if (intentosRestantes <= intentos && palabraOculta == palabraAleatoria) {
+            consola.mostrarMensaje("¡Felicidades! Has acertado la palabra.")
+        } else if (intentos > intentosRestantes) {
+            consola.mostrarMensaje("¡Ohhh! Lo sentimos, ya no tienes más intentos.")
+        }
     }
 
 }

@@ -1,14 +1,14 @@
 class Consola(): IEntradaSalida {
-    override fun leerInfo(info: Any): Any {
+    override fun lecturaDato(info: Any): String {
         val lectura = readLine()
         if (lectura != null) {
             return lectura
         }
-        return 0
+        return ""
     }
 
-    override fun mostrarMensaje(mensaje: Any) {
+    override fun mostrarMensaje(mensaje: Any): String {
         val imprimir = println(mensaje)
-        return imprimir
+        return imprimir.toString()
     }
 }

@@ -1,4 +1,4 @@
 interface IEntradaSalida {
-    fun leerInfo(info: Any): Any
-    fun mostrarMensaje(mensaje: Any) : Any
+    fun lecturaDato(info: Any): Any
+    fun mostrarMensaje(mensaje: Any): String
 }

@@ -1,5 +1,5 @@
 interface IMenu {
-    fun mostrarMenu()
+    fun mostrarMenu(): String
     fun generarSerie()
     fun jugarAhorcado()
 }

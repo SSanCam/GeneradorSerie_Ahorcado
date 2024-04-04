@@ -2,14 +2,13 @@
  * Programa principal.
  */
 fun main() {
-    val consola = Consola()
     val menu = Menu()
 
     // Recibimos la opción del menú
     do {
-        consola.mostrarMensaje(menu.mostrarMenu()).toString()
-        consola.mostrarMensaje("Introduce tu opción")
-        val opcion = consola.leerInfo(">> ")
+        val consola = Consola()
+        consola.mostrarMensaje(menu.mostrarMenu())
+        val opcion = consola.lecturaDato(consola.mostrarMensaje("Introduce tu opción"))
         when (opcion) {
             "1" -> menu.generarSerie()
             "2" -> menu.jugarAhorcado()
@@ -20,6 +19,6 @@ fun main() {
 
             else -> consola.mostrarMensaje("Opción no válida.")
         }
-    } while (opcion != 3)
+    } while (opcion != "3")
 
 }
