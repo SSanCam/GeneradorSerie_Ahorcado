@@ -23,11 +23,11 @@ class Menu() : IMenu {
      * Devuelve la serie que se generará según el primer rango aleatorio y el número introducido por teclado.
      */
     override fun generarSerie() {
-        CrearSerie().crearRangoAleatorio()
+        consola.mostrarMensaje(CrearSerie().crearRangoAleatorio())
     }
 
     override fun jugarAhorcado() {
-        Ahorcado().jugar()
+        consola.mostrarMensaje(Ahorcado().jugar())
     }
 }
 

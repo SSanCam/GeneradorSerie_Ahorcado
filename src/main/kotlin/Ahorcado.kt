@@ -25,9 +25,12 @@ class Ahorcado(intentos: Int = 5) {
         }
         do {
             consola.mostrarMensaje("Adivina la palabra: $palabraOculta")
+
             var letra = consola.lecturaDato("Intenta con una letra:")
 
-            // Comprobamos si la letra introducida está en la palabra aleatoria oculta y actualizamos palabraOculta para ir resolviendola.
+            /* Comprobamos si la letra introducida está en la palabra aleatoria oculta y actualizamos palabraOculta
+            para ir resolviendola.
+            */
             if (letra.lowercase() in palabraAleatoria) {
                 palabraOculta.replace("_ ", letra)
                 consola.mostrarMensaje(palabraOculta)
