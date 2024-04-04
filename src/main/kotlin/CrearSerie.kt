@@ -9,7 +9,7 @@ class CrearSerie(){
      * Generar Serie, es heredada de la interface IMenu.
      * Lee y devuelve datos por las funciones heredadas de IEntradaSalida
      */
-    private fun crearRangoAleatorio(): String {
+    fun crearRangoAleatorio(): String {
         val primerLimite = (1..100).random()
         val limiteRango: IntRange
         // Comprobamos que el rango que se genere esté dentro del propio rango 1..100.
