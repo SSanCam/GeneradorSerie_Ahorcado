@@ -17,6 +17,7 @@ class Ahorcado(intentos: Int = 5) {
      * Inicia la partida de Ahorcado.
      */
     fun jugar() {
+
         val abecedario = "a".."z"
         var palabraOculta = ""
         var intentosRestantes = intentos
@@ -32,7 +33,7 @@ class Ahorcado(intentos: Int = 5) {
             para ir resolviendola.
             */
             if (letra.lowercase() in palabraAleatoria) {
-                palabraOculta.replace("_ ", letra)
+                palabraOculta.replace("_ ", "$letra ")
                 consola.mostrarMensaje(palabraOculta)
             }
             // Comprobamos si la letra introducida no está en la palabra aleatoria oculta y restamos un intento.
@@ -48,6 +49,7 @@ class Ahorcado(intentos: Int = 5) {
         } else if (intentos > intentosRestantes) {
             consola.mostrarMensaje("¡Ohhh! Lo sentimos, ya no tienes más intentos.")
         }
+
     }
 
 }
