@@ -1,3 +1,5 @@
+import kotlin.contracts.contract
+
 class GestorConsola : IEntradaSalida {
     override fun pedirOpcion(): Int? {
         var opcion: Int? = null
@@ -21,6 +23,18 @@ class GestorConsola : IEntradaSalida {
             mostrarInformacion("ERROR al recibir los datos del usuario.")
         }
         return readLine()
+    }
+
+    override fun pedirLetra(): String? {
+        var letra: String? = null
+        try {
+            do {
+                letra = pedirDato("Intenta con una letra:\n")
+            }while (letra == null || letra.length != 1 || letra.isEmpty())
+        }catch (e: IllegalArgumentException){
+            mostrarInformacion("Debes introducir una única letra.")
+        }
+        return letra
     }
 
     override fun <T> mostrarInformacion(mensaje: T) {
