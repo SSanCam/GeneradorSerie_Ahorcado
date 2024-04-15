@@ -1,0 +1,3 @@
+interface IAhorcado {
+    fun jugar()
+}

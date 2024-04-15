@@ -1,4 +1,8 @@
 interface IEntradaSalida {
-    fun lecturaDato(info: Any): Any
-    fun mostrarMensaje(mensaje: Any): String
+    fun pedirOpcion(): Int?
+    fun pedirDato(mensaje: String = ""): String?
+    fun <T> mostrarInformacion(mensaje: T)
+    fun limpiar(lineas: Int = 20)
+    fun pausa()
+
 }

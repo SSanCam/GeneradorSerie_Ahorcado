@@ -1,0 +1,39 @@
+class GestorConsola : IEntradaSalida {
+    override fun pedirOpcion(): Int? {
+        var opcion: Int? = null
+        try {
+            do {
+                opcion = pedirDato("\nPor favor, selecciona opción: ")?.toInt()
+            } while (opcion.toString().isBlank() || opcion !in 1..3)
+
+        } catch (e: IllegalArgumentException) {
+            mostrarInformacion("Ésa opción no está disponible.")
+        }
+        return opcion
+    }
+
+    override fun pedirDato(mensaje: String): String? {
+        try {
+            if (mensaje.isNotBlank()) {
+                mostrarInformacion(mensaje)
+            }
+        } catch (e: Exception) {
+            mostrarInformacion("ERROR al recibir los datos del usuario.")
+        }
+        return readLine()
+    }
+
+    override fun <T> mostrarInformacion(mensaje: T) {
+        println(mensaje)
+    }
+
+    override fun limpiar(lineas: Int) {
+        for (linea in 1..lineas) {
+            mostrarInformacion("")
+        }
+    }
+
+    override fun pausa() {
+        Thread.sleep(100)
+    }
+}
