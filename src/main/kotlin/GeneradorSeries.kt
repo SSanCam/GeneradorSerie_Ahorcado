@@ -79,10 +79,9 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
         for (numero in rangoFinal.last downTo  rangoFinal.first){
             var serie = ""
             for (j in numero downTo rangoFinal.first){
-                serie +="$j"
+                serie +="$j+"
                 sumaFinal += j
             }
-            serie = serie.removeSuffix("+")
             consola.mostrarInformacion("${(rangoFinal.last - numero + 1).toString().padStart(2,'0')} -> $serie = $sumaFinal\n")
             consola.pausa()
         }
