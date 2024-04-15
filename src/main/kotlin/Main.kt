@@ -3,7 +3,7 @@
  */
 fun main() {
     val consola = GestorConsola()
-    val menu = Menu(consola)
+    val gestorMenu = GestorMenu(consola)
 
-    menu.mostrarMenu()
+    gestorMenu.mostrarMenu()
 }

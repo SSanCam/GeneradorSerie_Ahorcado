@@ -1,4 +1,4 @@
-class Menu(private val consola: GestorConsola): IMenu {
+class GestorMenu(private val consola: GestorConsola): IMenu {
     override fun mostrarMenu() {
         consola.mostrarInformacion("""
             1. Generar serie.
@@ -25,5 +25,6 @@ class Menu(private val consola: GestorConsola): IMenu {
 
     override fun jugarAhorcado() {
         val ahorcado = Ahorcado()
+        ahorcado.jugar()
     }
 }
