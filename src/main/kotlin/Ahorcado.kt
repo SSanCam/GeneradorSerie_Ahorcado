@@ -29,36 +29,38 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
      *
      */
     private fun jugarRonda(intentos: Int, palabraGenerada: String = this.palabraGenerada) {
-        var palabraOculta = ""
+        var palabraOculta = " _".repeat(palabraGenerada.length)
         var intentosRestantes = intentos
 
-        for (letras in palabraGenerada) {
-            palabraOculta += " _"
+        val palabraAdivinada: MutableMap<String, Char?> = mutableMapOf()
+
+        for (letra in palabraGenerada) {
+            palabraAdivinada[" _"] = null
         }
 
         do {
             consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
-            var letraNueva = consola.pedirLetra()
+            val letraNueva = consola.pedirLetra().toString()
 
-            /* Comprobamos si la letra introducida está en la palabra aleatoria oculta y actualizamos palabraOculta
-            para ir resolviendola.
-            */
-            if (letraNueva.toString() in palabraGenerada) {
-                palabraOculta.replace("_ ", "$letraNueva ")
-                consola.mostrarInformacion(palabraOculta)
-            }
-            // Comprobamos si la letra introducida no está en la palabra aleatoria oculta y restamos un intento.
-            if (letraNueva?.lowercase().toString() !in palabraGenerada) {
+            if (letraNueva in palabraGenerada) {
+                for (letra in palabraGenerada.indices) {
+                    if (palabraGenerada[letra].toString() == letraNueva) {
+                        palabraOculta = palabraOculta.replaceRange(letra * 2, letra * 2 + 1, letraNueva)
+                    }
+                }
+            }else{
                 consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
                 intentosRestantes--
             }
 
-        } while (letraNueva != null && intentos > 0)
+        } while (intentosRestantes > 0 && " _" in palabraOculta)
 
-        if (intentosRestantes <= intentos && palabraOculta == palabraGenerada) {
+        consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
+
+        if (" _" !in palabraOculta) {
             consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
-        } else if (intentos > intentosRestantes) {
-            consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos.")
+        } else {
+            consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
         }
     }
 
