@@ -37,7 +37,7 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
             adivinaPalabra += " _"
         }
         do {
-            consola.mostrarInformacion("$adivinaPalabra")
+            consola.mostrarInformacion(adivinaPalabra)
             val nuevaLetra = consola.pedirLetra()
             if (nuevaLetra.toString() !in palabraGenerada){
                 intentosRestantes--
@@ -47,8 +47,9 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
                     if (palabraGenerada[letra].toString() == nuevaLetra.toString()){
                         palabraAdivinada = palabraAdivinada.replace(" _", nuevaLetra.toString())
                     }
-                    consola.mostrarInformacion("Correcto!")
+
                 }
+                consola.mostrarInformacion("Correcto!")
                 adivinaPalabra = palabraAdivinada
                 consola.mostrarInformacion(adivinaPalabra)
             }

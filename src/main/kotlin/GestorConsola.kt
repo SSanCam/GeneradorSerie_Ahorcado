@@ -34,7 +34,7 @@ class GestorConsola : IEntradaSalida {
         }catch (e: IllegalArgumentException){
             mostrarInformacion("Debes introducir una única letra.")
         }
-        return letra
+        return letra?.lowercase()
     }
 
     override fun <T> mostrarInformacion(mensaje: T) {
