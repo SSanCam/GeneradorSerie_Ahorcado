@@ -39,47 +39,45 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
         }
 
         do {
-<<<<<<< HEAD
-            consola.mostrarInformacion(adivinaPalabra)
+            consola.mostrarInformacion(palabraAdivinada)
             val nuevaLetra = consola.pedirLetra()
-            if (nuevaLetra.toString() !in palabraGenerada){
+            if (nuevaLetra.toString() !in palabraGenerada) {
                 intentosRestantes--
                 consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
-            }else{
-                for (letra in palabraGenerada.indices){
-                    if (palabraGenerada[letra].toString() == nuevaLetra.toString()){
-                        palabraAdivinada = palabraAdivinada.replace(" _", nuevaLetra.toString())
+            } else {
+                for (letra in palabraGenerada.indices) {
+                    if (palabraGenerada[letra].toString() == nuevaLetra.toString()) {
+                        palabraAdivinada = palabraOculta.replace(" _", nuevaLetra.toString())
                     }
 
                 }
                 consola.mostrarInformacion("Correcto!")
-                adivinaPalabra = palabraAdivinada
-                consola.mostrarInformacion(adivinaPalabra)
-=======
-            consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
-            val letraNueva = consola.pedirLetra().toString()
+                palabraAdivinada = palabraAdivinada
+                consola.mostrarInformacion(palabraAdivinada)
+                consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
+                val letraNueva = consola.pedirLetra().toString()
 
-            if (letraNueva in palabraGenerada) {
-                for (letra in palabraGenerada.indices) {
-                    if (palabraGenerada[letra].toString() == letraNueva) {
-                        palabraOculta = palabraOculta.replaceRange(letra * 2, letra * 2 + 1, letraNueva)
+                if (letraNueva in palabraGenerada) {
+                    for (letra in palabraGenerada.indices) {
+                        if (palabraGenerada[letra].toString() == letraNueva) {
+                            palabraOculta = palabraOculta.replaceRange(letra * 2, letra * 2 + 1, letraNueva)
+                        }
                     }
+                } else {
+                    consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
+                    intentosRestantes--
                 }
-            }else{
-                consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
-                intentosRestantes--
->>>>>>> ahorcado
+
             }
 
+            consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
+
+            if (" _" !in palabraOculta) {
+                consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
+            } else {
+                consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
+            }
         } while (intentosRestantes > 0 && " _" in palabraOculta)
 
-        consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
-
-        if (" _" !in palabraOculta) {
-            consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
-        } else {
-            consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
-        }
     }
-
 }
