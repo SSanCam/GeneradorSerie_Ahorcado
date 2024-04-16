@@ -53,6 +53,9 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
         } catch (e: NumberFormatException) {
             consola.mostrarInformacion("Debes ingresar un número dentro del rango ${rangoSerie.first}-${rangoSerie.last}")
         }
+        Thread.sleep(3000)
+        consola.limpiar()
+        GestorMenu(consola).mostrarMenu()
     }
 
     /**
@@ -73,6 +76,11 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
         consola.mostrarInformacion("Suma => $sumaFinal")
     }
 
+    /**
+     * Serie Creciente
+     * @param rangoFinal IntRange Es el rango que se ha determinado a raíz de la función `generarSerie()`
+     * @return Devuelve un triángulo representada por los números del rango que se van sumando poco a poco, de forma contraria a la creciente.
+     */
     override fun serieDecreciente(rangoFinal: IntRange) {
         var sumaFinal = 0
 

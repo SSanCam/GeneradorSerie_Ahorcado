@@ -24,7 +24,6 @@ class GestorMenu(private val consola: GestorConsola): IMenu {
     }
 
     override fun jugarAhorcado() {
-        val ahorcado = Ahorcado()
-        ahorcado.jugar()
+        Ahorcado().jugar()
     }
 }

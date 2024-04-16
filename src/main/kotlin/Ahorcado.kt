@@ -5,22 +5,46 @@
  */
 class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val intentos: Int = 5) : IGestorAhorcado {
 
-    val palabra = Palabra()
-    val palabraGenerada = palabra.obtenerPalabraAleatoria()
+    private val palabraGenerada: String = Palabra().obtenerPalabraAleatoria()
 
     /**
      * Jugar
      * Inicializa el juego del Ahorcado.
      */
     override fun jugar() {
+        consola.mostrarInformacion(mostrarMensajeBienvenida())
+        jugarRonda(intentos, this.palabraGenerada)
+    }
+
+    /**
+     * Mostrar mensaje Bienvenida
+     * Muestra el mensaje que veremos al comenzar el juego.
+     */
+    override fun mostrarMensajeBienvenida() {
         consola.mostrarInformacion(
             """
             |¡Bienvenido al juego del Ahorcado!
             |La palabra que tienes que adivinar tiene ${palabraGenerada.length} letras.
         """.trimMargin()
         )
-        jugarRonda(intentos, this.palabraGenerada)
     }
+
+    /**
+     * Ocultar palabra
+     * Reemplaza cada letra de la palabra con " _"
+     */
+    override fun ocultarPalabra(): String {
+        return " _".repeat(palabraGenerada.length)
+    }
+
+    /**
+     * Actualizar palabra
+     * @return Actualiza la palabra oculta con las letras adivinadas por el jugador.
+     */
+    override fun actualizarPalabra(letraNueva: String, palabraGenerada: String, palabraOculta: String): String {
+        return palabraGenerada.map { if (it.toString() == letraNueva) it else "_"}.joinToString(" ")
+    }
+
 
     /**
      * Jugar ronda
@@ -28,56 +52,44 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
      * @param intentos: Int Son los intentos por juego.
      *
      */
-    private fun jugarRonda(intentos: Int, palabraGenerada: String = this.palabraGenerada) {
-        var palabraOculta = " _".repeat(palabraGenerada.length)
+    override fun jugarRonda(intentos: Int, palabraGenerada: String) {
+        val palabraOculta = ocultarPalabra()
         var intentosRestantes = intentos
-
-        val palabraAdivinada: MutableMap<String, Char?> = mutableMapOf()
-
-        for (letra in palabraGenerada) {
-            palabraAdivinada[" _"] = null
-        }
-
-        do {
-            consola.mostrarInformacion(palabraAdivinada)
-            val nuevaLetra = consola.pedirLetra()
-            if (nuevaLetra.toString() !in palabraGenerada) {
-                intentosRestantes--
-                consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
-            } else {
-                for (letra in palabraGenerada.indices) {
-                    if (palabraGenerada[letra].toString() == nuevaLetra.toString()) {
-                        palabraAdivinada = palabraOculta.replace(" _", nuevaLetra.toString())
-                    }
-
-                }
-                consola.mostrarInformacion("Correcto!")
-                palabraAdivinada = palabraAdivinada
-                consola.mostrarInformacion(palabraAdivinada)
-                consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
-                val letraNueva = consola.pedirLetra().toString()
-
-                if (letraNueva in palabraGenerada) {
-                    for (letra in palabraGenerada.indices) {
-                        if (palabraGenerada[letra].toString() == letraNueva) {
-                            palabraOculta = palabraOculta.replaceRange(letra * 2, letra * 2 + 1, letraNueva)
-                        }
-                    }
-                } else {
+        try {
+            do {
+                consola.mostrarInformacion("Adivina la palabra: $palabraOculta")
+                val letraNueva: String = consola.pedirLetra().toString()
+                val palabraActualizada = actualizarPalabra(letraNueva,palabraGenerada,palabraOculta)
+                consola.mostrarInformacion(palabraActualizada)
+                if (letraNueva.lowercase() !in palabraGenerada){
                     consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
                     intentosRestantes--
                 }
+            } while (intentosRestantes > 0 && "_" in palabraOculta)
 
-            }
+        } catch (e: Exception) {
+            consola.mostrarInformacion("**Error**")
+        } catch (e: IllegalArgumentException) {
+            consola.mostrarInformacion("No permitido.")
+        }
 
-            consola.mostrarInformacion("Adivina la palabra:$palabraOculta")
+    }
 
-            if (" _" !in palabraOculta) {
-                consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
-            } else {
-                consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
-            }
-        } while (intentosRestantes > 0 && " _" in palabraOculta)
-
+    /**
+     * Mostrar resultado
+     * Muestra el resultado final de la partida.
+     */
+    override fun mostrarResultado(intentosRestantes: Int, palabraOculta: String) {
+        if (intentosRestantes <= 0 && "_" !in palabraOculta){
+            consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
+            Thread.sleep(3000)
+            consola.limpiar()
+            GestorMenu(consola).mostrarMenu()
+        }else{
+            consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
+            Thread.sleep(3000)
+            consola.limpiar()
+            GestorMenu(consola).mostrarMenu()
+        }
     }
 }
