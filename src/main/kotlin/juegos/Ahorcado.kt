@@ -35,13 +35,14 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
      * @param intentos: Int Son los intentos por juego.
      *
      */
-    private fun jugarRonda(intentos: Int, palabraGenerada: String = this.palabraGenerada) {
-        var palabraOculta = " _".repeat(palabraGenerada.length)
+    override fun jugarRonda(intentos: Int, palabraGenerada: String) {
+        val palabraAleatoria = palabraGenerada
+        var palabraOculta = " _".repeat(palabraAleatoria.length)
         var intentosRestantes = intentos
 
         val palabraAdivinada: MutableMap<String, Char?> = mutableMapOf()
 
-        for (letra in palabraGenerada) {
+        for (letra in palabraAleatoria) {
             palabraAdivinada[" _"] = null
         }
 
