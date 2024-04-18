@@ -1,5 +1,10 @@
-import kotlin.contracts.contract
+package gestores
+import interfaces.IEntradaSalida
 
+/**
+ * Gestor consola
+ *
+ */
 class GestorConsola : IEntradaSalida {
     override fun pedirOpcion(): Int? {
         var opcion: Int? = null

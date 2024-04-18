@@ -1,3 +1,5 @@
+package interfaces
+
 interface IGestorAhorcado {
     fun jugar()
     fun mostrarMensajeBienvenida()

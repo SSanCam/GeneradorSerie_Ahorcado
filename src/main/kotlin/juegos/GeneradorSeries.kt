@@ -1,3 +1,12 @@
+package juegos
+import misc.TipoSerie
+import interfaces.IGenerarSerie
+import gestores.*
+
+/**
+ * Generador series
+ *
+ */
 class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
 
     /**
@@ -25,8 +34,8 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
      * Éste método recibe un rango aleatorio, pide al usuario un número dentro de dicho rango y determina que tipo de serie (creciente o decreciente) debe crear.
      * @return Devuelve una rango Int generado a partir del método generarRangoAleatorio.
      */
-    override fun generarSerie() {
-        consola.limpiar()
+    override fun generarSerie(consola: GestorConsola) {
+        consola.limpiar(20)
         val numeroPedido: Int?
         val tipoSerie: TipoSerie
         val rangoSerie = generarRangoAleatorio()
@@ -54,7 +63,7 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
             consola.mostrarInformacion("Debes ingresar un número dentro del rango ${rangoSerie.first}-${rangoSerie.last}")
         }
         Thread.sleep(3000)
-        consola.limpiar()
+        consola.limpiar(20)
         GestorMenu(consola).mostrarMenu()
     }
 

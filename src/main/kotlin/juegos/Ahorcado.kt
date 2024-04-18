@@ -1,3 +1,8 @@
+package juegos
+
+import interfaces.*
+import gestores.*
+import misc.Palabra
 /**
  * Ahorcado mostrará el típico juego del Ahorcado
  * @property intentos Int Es el número de intentos que tiene el jugador para acertar la palabra.
@@ -83,12 +88,12 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
         if (intentosRestantes <= 0 && "_" !in palabraOculta){
             consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
             Thread.sleep(3000)
-            consola.limpiar()
+            consola.limpiar(20)
             GestorMenu(consola).mostrarMenu()
         }else{
             consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
             Thread.sleep(3000)
-            consola.limpiar()
+            consola.limpiar(20)
             GestorMenu(consola).mostrarMenu()
         }
     }

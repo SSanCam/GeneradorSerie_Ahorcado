@@ -1,3 +1,10 @@
+package gestores
+import juegos.*
+import interfaces.IMenu
+
+/**
+ * Gestor menu
+ */
 class GestorMenu(private val consola: GestorConsola): IMenu {
     override fun mostrarMenu() {
         consola.mostrarInformacion("""
@@ -18,9 +25,8 @@ class GestorMenu(private val consola: GestorConsola): IMenu {
     }
 
     override fun generarSerie() {
-        val generadorSeries = GeneradorSeries(consola)
-        generadorSeries.generarSerie()
-
+        val generador = GeneradorSeries(consola)
+        generador.generarSerie(consola)
     }
 
     override fun jugarAhorcado() {

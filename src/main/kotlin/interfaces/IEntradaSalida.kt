@@ -1,3 +1,5 @@
+package interfaces
+
 interface IEntradaSalida {
     fun pedirOpcion(): Int?
     fun pedirDato(mensaje: String = ""): String?

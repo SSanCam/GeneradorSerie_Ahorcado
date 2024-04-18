@@ -1,5 +1,8 @@
+package misc
+
 import com.google.gson.Gson
 import java.io.File
+import interfaces.*
 
 /**
  * Palabra

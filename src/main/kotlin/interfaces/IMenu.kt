@@ -1,3 +1,5 @@
+package interfaces
+
 interface IMenu {
     fun mostrarMenu()
     fun generarSerie()
