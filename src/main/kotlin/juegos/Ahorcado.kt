@@ -28,7 +28,9 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
             |¡Bienvenido al juego del Ahorcado!
             |La palabra que tienes que adivinar tiene ${palabraGenerada.length} letras.
         """.trimMargin()
-        )    }
+        )
+    }
+
     /**
      * Jugar ronda
      * Gestiona los pasos de una ronda del juego
@@ -39,7 +41,7 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
         val palabraAleatoria = palabraGenerada
         var palabraOculta = " _".repeat(palabraAleatoria.length)
         var intentosRestantes = intentos
-
+        val letrasUsadas: MutableSet<String> = mutableSetOf()
         val palabraAdivinada: MutableMap<String, Char?> = mutableMapOf()
 
         for (letra in palabraAleatoria) {
@@ -51,14 +53,18 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
             val letraNueva = consola.pedirLetra().toString()
 
             if (letraNueva in palabraGenerada) {
+                letrasUsadas.add(letraNueva)
                 for (letra in palabraGenerada.indices) {
                     if (palabraGenerada[letra].toString() == letraNueva) {
                         palabraOculta = palabraOculta.replaceRange(letra * 2, letra * 2 + 1, letraNueva)
                     }
                 }
+                if (letraNueva in letrasUsadas){
+                    consola.mostrarInformacion("Ya has usado esa letra, prueba con otra.")
+                }
             } else {
-                consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
                 intentosRestantes--
+                consola.mostrarInformacion("Incorrecto! Intentos restantes: $intentosRestantes")
             }
 
         } while (intentosRestantes > 0 && " _" in palabraOculta)
@@ -67,8 +73,14 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
         if (" _" !in palabraOculta) {
             consola.mostrarInformacion("¡Felicidades! Has acertado la palabra.")
+            Thread.sleep(3000)
+            consola.limpiar(20)
+            GestorMenu(consola).mostrarMenu()
         } else {
             consola.mostrarInformacion("¡Ohhh! Lo sentimos, ya no tienes más intentos. La palabra era: $palabraGenerada")
+            Thread.sleep(3000)
+            consola.limpiar(20)
+            GestorMenu(consola).mostrarMenu()
         }
     }
 
