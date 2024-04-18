@@ -14,6 +14,7 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
     /**
      * Jugar
+     *
      * Inicializa el juego del Ahorcado.
      */
     override fun jugar() {
@@ -23,6 +24,7 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
     /**
      * Mostrar mensaje Bienvenida
+     *
      * Muestra el mensaje que veremos al comenzar el juego.
      */
     override fun mostrarMensajeBienvenida() {
@@ -36,7 +38,7 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
     /**
      * Ocultar palabra
-     * Reemplaza cada letra de la palabra con " _"
+     * @return Reemplaza cada letra de la palabra con " _"
      */
     override fun ocultarPalabra(): String {
         return " _".repeat(palabraGenerada.length)
@@ -44,6 +46,13 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
     /**
      * Actualizar palabra
+     *
+     * Actualiza la palabra oculta con las letras adivinadas por el jugador.
+     *
+     * @param letraNueva        String  Letra introducida por el jugador.
+     * @param palabraGenerada   String  Palabra que el jugador debe adivinar.
+     * @param palabraOculta     String  Palabra oculta, con las letras adivinadas actualizadas.
+     *
      * @return Actualiza la palabra oculta con las letras adivinadas por el jugador.
      */
     override fun actualizarPalabra(letraNueva: String, palabraGenerada: String, palabraOculta: String): String {
@@ -53,8 +62,11 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
     /**
      * Jugar ronda
+     *
      * Gestiona los pasos de una ronda del juego
-     * @param intentos: Int Son los intentos por juego.
+     *
+     * @param intentos Int Son los intentos por juego.
+     * @param palabraGenerada String Palabra obtenida de forma aleatoria que el jugador debe adivinar.
      *
      */
     override fun jugarRonda(intentos: Int, palabraGenerada: String) {
@@ -82,7 +94,10 @@ class Ahorcado(private val consola: GestorConsola = GestorConsola(), private val
 
     /**
      * Mostrar resultado
+     *
      * Muestra el resultado final de la partida.
+     * @param intentosRestantes Int Representa el número de intentos disponibles.
+     * @param palabraOculta String Es la palabra oculta que debemos adivinar.
      */
     override fun mostrarResultado(intentosRestantes: Int, palabraOculta: String) {
         if (intentosRestantes <= 0 && "_" !in palabraOculta){

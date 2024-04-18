@@ -1,16 +1,22 @@
 package juegos
+
 import misc.TipoSerie
 import interfaces.IGenerarSerie
 import gestores.*
 
 /**
  * Generador series
+ * Clase que genera series numéricas de forma aleatoria y determina su tipo (creciente o decreciente).
  *
+ *@property consola GestorConsola para manejar la entrada y salida de datos.
  */
 class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
 
     /**
      * Generar rango aleatorio
+     * Genera un rango aleatorio entre los valores mínimo y máximo especificados.
+     * @param min Int Valor mínimo del rango.
+     * @param max Int Valor máximo del rango.
      * @return Devuelve un rango aleatorio entre 1-100, que tiene al menos 30 números entre el valor máximo y el valor mínimo.
      */
     override fun generarRangoAleatorio(min: Int, max: Int): IntRange {
@@ -32,7 +38,7 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
     /**
      * Generar Serie
      * Éste método recibe un rango aleatorio, pide al usuario un número dentro de dicho rango y determina que tipo de serie (creciente o decreciente) debe crear.
-     * @return Devuelve una rango Int generado a partir del método generarRangoAleatorio.
+     * @return Devuelve IntRange generado a partir del método generarRangoAleatorio.
      */
     override fun generarSerie(consola: GestorConsola) {
         consola.limpiar(20)
@@ -70,7 +76,7 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
     /**
      * Serie Creciente
      * @param rangoFinal IntRange Es el rango que se ha determinado a raíz de la función `generarSerie()`
-     * @return Devuelve una pirámide representada por los números del rango que se van sumando poco a poco.
+     * @return Devuelve una pirámide representada por los números del rango generado aleatoriamente, que se van sumando poco a poco.
      */
     override fun serieCreciente(rangoFinal: IntRange) {
         var sumaFinal = 0
@@ -92,12 +98,13 @@ class GeneradorSeries(private val consola: GestorConsola) : IGenerarSerie {
      */
     override fun serieDecreciente(rangoFinal: IntRange) {
         var sumaFinal = 0
-
+        // Se itera el rango desde el último número al primero.
         for (numero in rangoFinal.last downTo  rangoFinal.first){
             var serie = ""
-            for (j in numero downTo rangoFinal.first){
-                serie +="$j+"
-                sumaFinal += j
+            // Vuelve a iterarse el rango desde el numero actual, hasta el primero, pero en cada vuelta el número actual será el penúltimo, por lo que el rango será cada vez un número más pequeño.
+            for (nuevaPosicion in numero downTo rangoFinal.first){
+                serie +="$nuevaPosicion+"
+                sumaFinal += nuevaPosicion
             }
             consola.mostrarInformacion("${(rangoFinal.last - numero + 1).toString().padStart(2,'0')} -> $serie = $sumaFinal\n")
             consola.pausa()

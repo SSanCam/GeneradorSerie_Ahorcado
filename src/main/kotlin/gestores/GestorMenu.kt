@@ -4,8 +4,14 @@ import interfaces.IMenu
 
 /**
  * Gestor menu
+ *
+ * @property consola GestorConsola Para poder manejar la entrada/salida de datos.
  */
 class GestorMenu(private val consola: GestorConsola): IMenu {
+
+    /**
+     * Muestra el menú principal del programa.
+     */
     override fun mostrarMenu() {
         consola.mostrarInformacion("""
             1. Generar serie.
@@ -24,11 +30,17 @@ class GestorMenu(private val consola: GestorConsola): IMenu {
         }
     }
 
+    /**
+     * Genera una serie numérica.
+     */
     override fun generarSerie() {
         val generador = GeneradorSeries(consola)
         generador.generarSerie(consola)
     }
 
+    /**
+     * Inicia el juego del Ahorcado.
+     */
     override fun jugarAhorcado() {
         Ahorcado().jugar()
     }
